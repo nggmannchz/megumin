@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+       radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.78)),
+       linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)),
+        url("./images/874254.jpg") center center / cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(219, 73, 73, 0.61);
+      border-top: 5px solid crimson;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+     .progress-container {
+      width: 250px;
+      background-color: black;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .progress-bar {
+      width: 0%;
+      height: 8px;
+      background-color: crimson;
+      border-radius: 10px;
+      transition: width 0.1s linear; 
+    }
+
+    #loading-text {
+      color: crimson;
+      font-family: "Nunito", sans-serif;
+      font-weight: 300;
+      font-size: 3rem;
+      margin-top: 10px;
+    }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Megumin's Profile</title>
+
+  <link rel="icon" type="image/png" href="./images/megumin-icon-23.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amarna:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="loading-screen">
+  <div class="loader"></div>
+  <div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+  <div class = "text-card hover-card">Welcome to Megumin's World!</div>
+  </div>
+  <audio id="bgMusic" src="./audio/background-music.mp3" loop></audio>
+  <audio id="explosionSound" src="./audio/explosion.mp3"></audio>
+
+  <div class="embers"></div>
+
+  <main class="page-content">
+    <blockquote>“Explosion is the ultimate magic!”</blockquote>
+
+    <h1 data-aos="zoom-in">Megumin, Axel's Strongest Mage!</h1>
+    <h2 data-aos="fade-down">General Information</h2>
+
+    <section class="section-grid">
+      <div data-aos="fade-right">
+        <div class="text-card hover-card">
+          <p>
+            Megumin, when first introduced, is 14 years old, which is known for her obsession with explosion magic, which she can only use once a day due to its immense power. Despite this limitation, Megumin is determined to become the greatest explosion mage in the world.
+          </p>
+        </div>
+      </div>
+
+      <a href="https://konosuba.fandom.com/wiki/Megumin" target="_blank" rel="noopener noreferrer" data-aos="fade-left">
+        <img class="megumin-img hover-img" src="./images/megumin4.png" alt="Megumin">
+      </a>
+    </section>
+
+    <section class="section-grid">
+      <a href="https://konosuba.fandom.com/wiki/Megumin" target="_blank" rel="noopener noreferrer" data-aos="fade-right">
+        <img class="megumin-img hover-img" src="./images/megumin2.png" alt="Megumin under the stars">
+      </a>
+
+      <div data-aos="fade-left">
+        <div class="text-card hover-card">
+          <p>
+            Megumin has a powerful explosion magic, but she can only use it once a day. She is a member of the Crimson Demon Clan, which is known for their powerful magic and their love of explosions. Megumin is proud, confident, and loyal to her friends.
+          </p>
+        </div>
+      </div>
+    </section>
+    <h2 data-aos="fade-up">Explosion Showcase</h2>
+     <section class="video-section" data-aos="zoom-in">
+      <video class="video-card hover-card" controls poster="./images/megumin3.jpg">
+       <source src="./videos/explosionvideo.mp4" type="video/mp4">
+      </video>
+    </section>
+  <div class = "stats-area">
+    <div data-aos="fade-up" data-aos-duration="2000">
+      <section class="stats-card hover-card">
+        <h2>Stats Board</h2>
+
+        <div class="stat">
+          <label>Explosion Power</label>
+          <div class="bar"><div class="fill power"></div></div>
+        </div>
+
+        <div class="stat">
+          <label>Defense</label>
+          <div class="bar"><div class="fill defense"></div></div>
+        </div>
+
+        <div class ="stat">
+          <label>IQ</label>
+          <div class="bar"><div class="fill iq"></div></div>
+        </div>
+
+        <div class="stat">
+          <label>Mana</label>
+          <div class="bar"><div class="fill mana" id="manaBar"></div></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+    <p class="spell-status" id="spellStatus"></p>
+    <p class="explosion-title" id="explosionTitle"></p>
+
+    <button class="explosion-btn" data-aos="fade-up">CAST EXPLOSION</button>
+
+    <p class="chant-text" id="chantText"></p>
+    
+    <section class = "character-section">
+      <h2 data-aos="fade-up">Characteristics and Personality</h2>
+      <div data-aos="fade-up">
+        <div class = "character-boxes">
+        <div class = "text-card hover-card">
+          <h2>Characteristics</h2>
+          <ul class = "icon-list magic-list">
+            <li>Member of the Crimson Demon Clan</li>
+            <li>Wears a distinctive witch hat and robe</li>
+            <li>Has a strong sense of pride and confidence</li>
+            <li>Loyal to her friends and values their companionship</li>
+          </ul>
+        </div>
+        <div class = "text-card hover-card">
+          <h2>Personality</h2>
+          <ul class = "icon-list magic-list">
+            <li>Brave and determined</li>
+            <li>Enthusiastic and energetic</li>
+            <li>Can be impulsive and reckless</li>
+            <li>Chuunibyou energy</li>
+            <li>Competitive and childish</li>
+            <li>Has a soft spot for cute things and is easily flustered</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section class="relationship-section" data-aos="fade-up">
+      <h2>Relationship</h2>
+
+      <div class="relationship-layout">
+        <div
+          class="relationship-card kazuma-card"
+          data-reaction='Kazuma: "You made us in debt again, all because of your explosion!"'
+          data-theme="kazuma"
+        >
+          <img src="./images/kazuma.jpg" alt="Kazuma">
+          <h3>Kazuma</h3>
+          <p>Party Leader</p>
+
+          <ul class="relationship-stats">
+            <li>Luck: S</li>
+            <li>IQ: S</li>
+            <li>Patience: F</li>
+          </ul>
+
+          <button class="voice-btn" type="button" data-voice="./audio/kazumavoice.mp3">
+            Play Voice Line
+          </button>
+
+          <div class="dialogue-bubble">
+            "What's gotten you so flustered? Were you seriously worried about me? That's pretty cute of you."
+          </div>
+        </div>
+
+        <div class="relationship-center">
+          <p class="banter-text" id="relationshipBanter">
+            Hover a character to hear the party chemistry.
+          </p>
+
+          <div class="heartbeat-wrap" aria-hidden="true">
+            <svg class="heartbeat-svg" viewBox="0 0 700 180">
+              <path
+                class="heartbeat-line"
+                d="
+                  M10 100
+                  H110
+                  L135 35
+                  L165 145
+                  L195 100
+                  H270
+                  C270 35 325 25 350 80
+                  C375 25 430 35 430 100
+                  C430 155 350 175 350 175
+                  C350 175 270 155 270 100
+                  H505
+                  L530 35
+                  L560 145
+                  L590 100
+                  H690
+                "
+              />
+            </svg>
+          </div>
+
+          <div class="relationship-meter hover-card">
+            <h3>Relationship Meter</h3>
+
+            <div class="meter-row">
+              <span>Trust</span>
+              <div class="meter-bar">
+                <div class="meter-fill trust"></div>
+              </div>
+            </div>
+
+            <div class="meter-row">
+              <span>Chaos</span>
+              <div class="meter-bar">
+                <div class="meter-fill chaos"></div>
+              </div>
+            </div>
+
+            <div class="meter-row">
+              <span>Explosion Compatibility</span>
+              <div class="meter-bar">
+                <div class="meter-fill explosion"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="party-network" aria-label="Party relationship network">
+            <button type="button" data-party-line='Kazuma: "I am begging this party to be normal for one day."'>
+              Kazuma
+            </button>
+            <button type="button" data-party-line='Aqua: "Obviously, I am the most important one here!"'>
+              Aqua
+            </button>
+            <button class="is-active" type="button" data-party-line='Megumin: "All relationships are improved by Explosion magic."'>
+              Megumin
+            </button>
+            <button type="button" data-party-line='Darkness: "Please let me tank some shots today!~"'>
+              Darkness
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="relationship-card megumin-card"
+          data-reaction='Megumin: "And I will do it again. Witness my ultimate magic!"'
+          data-theme="megumin"
+        >
+          <img src="./images/megumin5.jpg" alt="Megumin">
+          <h3>Megumin</h3>
+          <p>Explosion Archwizard</p>
+
+          <ul class="relationship-stats">
+            <li>Power: SS</li>
+            <li>IQ: B</li>
+            <li>Cuteness: SSS</li>
+          </ul>
+
+          <button class="voice-btn" type="button" data-voice="./audio/meguminvoice.mp3">
+            Play Voice Line
+          </button>
+
+          <div class="dialogue-bubble">
+            "I-It's because you always tend to get yourself into trouble, despite being a weakling!"
+          </div>
+        </div>
+      </div>
+      <h3 data-aos="fade-up">Memorable Events</h3>
+      <div class="relationship-events" data-aos="fade-up">
+        <button
+          class="event-card is-active"
+          type="button"
+          data-title="Campfire"
+          data-text='Kazuma had trauma from the last fight and wanted to become a monk. Kazuma and Megumin are having free time together.'
+          data-image="./images/kazumamegumin4.jpg"
+          data-video="./videos/kazumatrauma.mp4"
+        >
+          <span>Event 01</span>
+          Campfire
+        </button>
+
+        <button
+          class="event-card"
+          type="button"
+          data-title="Wiz's Shop"
+          data-text='Kazuma and Megumin are being teased by Vanir about what they almost did in Crimson Demon Village.'
+          data-image="./images/megumin7.jpg"
+          data-video="./videos/atwizshop.mp4"
+        >
+          <span>Event 02</span>
+          Wiz's Shop
+        </button>
+
+        <button
+          class="event-card"
+          type="button"
+          data-title="Rescuing Darkness"
+          data-text='Kazuma says he doesn&apos;t want to rescure Darkness, but Megumin motivates him to do what he thinks is right.'
+          data-image="./images/megumin6.jpg"
+          data-video="./videos/rescuingdarkness.mp4"
+        >
+          <span>Event 03</span>
+          Rescuing Darkness
+        </button>
+      </div>
+
+      <div class="event-preview" id="relationshipEventPreview" data-aos="zoom-in">
+        <img src="./images/kazumamegumin4.jpg" alt="Relationship event preview">
+        <div>
+          <h3>Campfire</h3>
+          <p>Kazuma had trauma from the last fight and wanted to become a monk. Kazuma and Megumin are having free time together.</p>
+          <video controls poster="./images/kazumamegumin4.jpg">
+            <source src="./videos/kazumatrauma.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+<h3 data-aos="fade-up">Relationship Gallery</h3>
+<section class="relationship-gallery">
+  <div class="left-gallery">
+    <div class="gallery-frame" data-aos="fade-right">
+      <img class="hover-img" src="./images/kazumamegumin1.jpg" alt="Kazuma and Megumin">
+    </div>
+    <div class="gallery-frame" data-aos="fade-right">
+      <img class="hover-img" src="./images/kazumamegumin2.jpg" alt="Kazuma and Megumin">
+    </div>
+  </div>
+
+  <div class="gallery-frame right-gallery-frame" data-aos="fade-left">
+    <img class="right-gallery-img hover-img" src="./images/kazumamegumin3.jpg" alt="Kazuma and Megumin">
+  </div>
+</section>
+
+    <div class="explosion-flash" id="explosionFlash"></div>
+    <div class="scorch-mark" id="scorchMark"></div>
+    <div class="volume-control">
+      <label for="bgVolume">Music</label>
+      <input id="bgVolume" type="range" min="0" max="100" value="10">
+    </div>
+
+  </main>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
+  </body>
+</html>
