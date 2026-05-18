@@ -14,7 +14,7 @@ const progressInterval = setInterval(() => {
 
 const messages = ["Welcome to Megumin's World!", "The Strongest Mage!", "EXPLOSION!", "Crimson Demon Clan", "Cutest Arch Wizard", "Darkness Blacker than Black"];
 let msgIndex = 0;
-const textElement = document.querySelector(".text-card");
+const textElement = document.querySelector(".loading-card");
   
 const textInterval = setInterval(() => {
   msgIndex = (msgIndex + 1) % messages.length;
@@ -358,36 +358,40 @@ partyButtons.forEach((button) => {
     }
   });
 });
-// ── QUIZ DATA ──────────────────────────────
+
 const quizQuestions = [
   {
     question: "What type of magic does Megumin exclusively use?",
     options: ["Fireball", "Explosion", "Lightning", "Darkness"],
-    correct: 1
+    correct: 1,
+    image: "./images/megumin4.png"
   },
   {
     question: "What clan does Megumin belong to?",
     options: ["Shadow Clan", "Thunder Clan", "Crimson Demon Clan", "Golden Eye Clan"],
-    correct: 2
+    correct: 2,
+    image: "./images/megumin5.jpg"
   },
   {
     question: "How many times per day can Megumin cast her magic?",
     options: ["Unlimited", "Three times", "Twice", "Once"],
-    correct: 3
+    correct: 3,
+    image: "./images/megumin6.jpg"
   },
   {
     question: "What is the name of Megumin's black cat?",
     options: ["Chomusuke", "Blackie", "Shadow", "Luna"],
-    correct: 0
+    correct: 0,
+    image: "./images/megumin7.jpg"
   },
   {
     question: "What town does Megumin's party operate from?",
     options: ["Elroad", "Axel", "Alcanretia", "Arcanletia"],
-    correct: 1
+    correct: 1,
+    image: "./images/megumin2.png"
   }
 ];
 
-// Megumin reactions based on your score
 const quizReactions = [
   { min: 0, max: 1, text: "0–1 correct - Even a slime knows more about me than you do!" },
   { min: 2, max: 2, text: "2 correct - You need to study harder. Explosion!" },
@@ -396,12 +400,11 @@ const quizReactions = [
   { min: 5, max: 5, text: "5 correct - You truly understand the might of explosion magic!" }
 ];
 
-// ── QUIZ STATE ─────────────────────────────
+//Quiz state//
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
 
-// ── QUIZ ELEMENTS ──────────────────────────
 const quizCounter  = document.getElementById("quizCounter");
 const quizQuestion = document.getElementById("quizQuestion");
 const quizOptions  = document.getElementById("quizOptions");
@@ -409,8 +412,8 @@ const quizResult   = document.getElementById("quizResult");
 const quizScore    = document.getElementById("quizScore");
 const quizReaction = document.getElementById("quizReaction");
 const quizRestart  = document.getElementById("quizRestart");
+const quizImage = document.getElementById("quizImage");
 
-// ── LOAD A QUESTION ────────────────────────
 function loadQuestion() {
   answered = false;
   const q = quizQuestions[currentQuestion];
@@ -418,6 +421,11 @@ function loadQuestion() {
   quizCounter.textContent  = `Question ${currentQuestion + 1} / ${quizQuestions.length}`;
   quizQuestion.textContent = q.question;
 
+  quizImage.style.opacity = "0";
+  setTimeout(() => {
+    quizImage.src = q.image;
+    quizImage.style.opacity = "1";
+  }, 200);
   // Clear old options
   quizOptions.innerHTML = "";
 
@@ -431,7 +439,6 @@ function loadQuestion() {
   });
 }
 
-// ── HANDLE ANSWER CLICK ────────────────────
 function selectAnswer(selectedIndex, clickedBtn) {
   // Prevent clicking again after answering
   if (answered) return;
@@ -462,7 +469,6 @@ function selectAnswer(selectedIndex, clickedBtn) {
   }, 1200);
 }
 
-// ── SHOW FINAL RESULT ──────────────────────
 function showResult() {
   quizOptions.style.display  = "none";
   quizQuestion.style.display = "none";
@@ -475,7 +481,6 @@ function showResult() {
   quizReaction.textContent = reaction ? reaction.text : "";
 }
 
-// ── RESTART BUTTON ─────────────────────────
 quizRestart.addEventListener("click", () => {
   currentQuestion = 0;
   score           = 0;
@@ -489,10 +494,8 @@ quizRestart.addEventListener("click", () => {
   loadQuestion();
 });
 
-// Start the quiz
-
 loadQuestion();
-// ── TIMELINE SCROLL ────────────────────────
+
 const timelineProgress = document.getElementById("timelineProgress");
 const timelineWrap     = document.querySelector(".timeline-wrap");
 const timelineItems    = document.querySelectorAll(".timeline-item");
@@ -532,4 +535,4 @@ function updateTimeline() {
 }
 
 window.addEventListener("scroll", updateTimeline);
-updateTimeline(); // run once on load
+updateTimeline();

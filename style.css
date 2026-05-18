@@ -1010,7 +1010,10 @@ h3 {
   .quiz-options       { grid-template-columns: 1fr; }
 }
 
-/* ── TIMELINE ── */
+.quiz-image-side img {
+  transition: opacity 0.3s ease;
+}
+
 #timeline { margin: 3rem 0; }
 
 .timeline-wrap {

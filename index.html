@@ -6,60 +6,115 @@ git push
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-       radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.78)),
-       linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)),
-        url("./images/874254.jpg") center center / cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 99999;
-      transition: opacity 0.5s ease;
-    }
+  <style>
+  #loading-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.85)),
+      linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+      url("./images/874254.jpg") center center / cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 0.6s ease;
+    padding: 2rem;
+  }
+  .skeleton-title {
+    width: 280px;
+    height: 52px;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  .skeleton-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 600px;
+  }
+  .skeleton-card {
+    flex: 1;
+    height: 110px;
+    border-radius: 14px;
+  }
+  .skeleton-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .skeleton-line {
+    height: 14px;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+  }
+  .skeleton-line.short { width: 55%; }
+  .skeleton-line.long  { width: 85%; }
+  .skeleton-line.full  { width: 100%; }
+  .skeleton-title,
+  .skeleton-card,
+  .skeleton-img,
+  .skeleton-line {
+    background: linear-gradient(
+      90deg,
+      rgba(80, 10, 10, 0.6)   0%,
+      rgba(180, 20, 20, 0.35) 40%,
+      rgba(220, 20, 60, 0.5)  50%,
+      rgba(180, 20, 20, 0.35) 60%,
+      rgba(80, 10, 10, 0.6)  100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease infinite;
+    border: 1px solid rgba(220, 20, 60, 0.2);
+  }
 
-    .loader {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(219, 73, 73, 0.61);
-      border-top: 5px solid crimson;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-     .progress-container {
-      width: 250px;
-      background-color: black;
-      border-radius: 10px;
-      overflow: hidden;
-      margin: 20px 0;
-    }
-    .progress-bar {
-      width: 0%;
-      height: 8px;
-      background-color: crimson;
-      border-radius: 10px;
-      transition: width 0.1s linear; 
-    }
-
-    #loading-text {
-      color: crimson;
-      font-family: "Nunito", sans-serif;
-      font-weight: 300;
-      font-size: 3rem;
-      margin-top: 10px;
-    }
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .progress-container {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(20, 0, 0, 0.8);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+    border: 1px solid rgba(220, 20, 60, 0.3);
+  }
+  .progress-bar {
+    width: 0%;
+    height: 5px;
+    background: linear-gradient(90deg, crimson, #ff4b00);
+    border-radius: 999px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(220, 20, 60, 0.7);
+  }
+  .loading-label {
+    color: rgba(255, 211, 110, 0.7);
+    font-family: "Nunito", sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 3px;
+    margin-top: 0.75rem;
+    text-transform: uppercase;
+  }
+  .loading-card {
+    color: crimson;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-top: 1.2rem;
+    text-align: center;
+    min-height: 1.5rem;
+    text-shadow: 0 0 10px rgba(220, 20, 60, 0.6);
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -92,11 +147,25 @@ git push
   <button class="topnav-hamburger" id="hamburger">☰</button>
   </nav>
   <div id="loading-screen">
-  <div class="loader"></div>
+  <div class="skeleton-title"></div>
+  <div class="skeleton-row">
+    <div class="skeleton-card"></div>
+    <div class="skeleton-img"></div>
+  </div>
+  <div class="skeleton-row">
+    <div class="skeleton-img"></div>
+    <div class="skeleton-card"></div>
+  </div>
+  <div class="skeleton-row" style="flex-direction: column; gap: 0;">
+    <div class="skeleton-line long"></div>
+    <div class="skeleton-line full"></div>
+    <div class="skeleton-line short"></div>
+  </div>
   <div class="progress-container">
     <div class="progress-bar" id="progress-bar"></div>
   </div>
-  <div class = "text-card hover-card">Welcome to Megumin's World!</div>
+  <div class="loading-label">Loading Crimson Magic...</div>
+  <div class="loading-card">Welcome to Megumin's World!</div>
   </div>
   <audio id="bgMusic" src="./audio/background-music.mp3" loop></audio>
   <audio id="explosionSound" src="./audio/explosion.mp3"></audio>
@@ -425,15 +494,10 @@ git push
 </section>
 <section id="quiz">
   <h2>How Well Do You Know Megumin?</h2>
-
   <div class="quiz-wrapper">
-
-    <!-- Image on the left -->
     <div class="quiz-image-side">
-      <img src="./images/megumin4.png" alt="Megumin">
+      <img id="quizImage" src="./images/megumin4.png" alt="Megumin">
     </div>
-
-    <!-- Quiz on the right -->
     <div class="quiz-card hover-card" id="quizCard">
 
       <div class="quiz-counter" id="quizCounter">Question 1 / 5</div>
@@ -451,15 +515,10 @@ git push
 </section>
 <section id="timeline">
   <h2>Megumin's Story</h2>
-
   <div class="timeline-wrap">
-
-    <!-- This is the line that grows downward as you scroll -->
     <div class="timeline-track">
       <div class="timeline-progress" id="timelineProgress"></div>
     </div>
-
-    <!-- Each event -->
     <div class="timeline-item" data-aos="fade-right">
       <div class="timeline-dot"></div>
       <div class="timeline-card hover-card">
