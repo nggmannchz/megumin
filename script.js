@@ -33,6 +33,39 @@ setTimeout(() => {
   }, 500);
 }, DURATION);
 
+// ── TOP NAV ────────────────────────────────
+
+const topnavLinks = document.querySelectorAll(".topnav-links a");
+const hamburger   = document.getElementById("hamburger");
+const topnavMenu  = document.querySelector(".topnav-links");
+
+// Hamburger toggle for mobile
+hamburger.addEventListener("click", () => {
+  topnavMenu.classList.toggle("is-open");
+});
+
+// Close menu when a link is clicked on mobile
+topnavLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    topnavMenu.classList.remove("is-open");
+  });
+});
+
+// Highlight active link on scroll
+const navSections = document.querySelectorAll("section[id], div[id], h2[id]");
+
+const topnavObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      topnavLinks.forEach(link => link.classList.remove("is-active"));
+      const active = document.querySelector(`.topnav-links a[href="#${entry.target.id}"]`);
+      if (active) active.classList.add("is-active");
+    }
+  });
+}, { threshold: 0.4 });
+
+navSections.forEach(section => topnavObserver.observe(section));
+
 const castButton = document.querySelector(".explosion-btn");
 const manaBar = document.querySelector("#manaBar");
 const spellStatus = document.querySelector("#spellStatus");
@@ -325,3 +358,178 @@ partyButtons.forEach((button) => {
     }
   });
 });
+// ── QUIZ DATA ──────────────────────────────
+const quizQuestions = [
+  {
+    question: "What type of magic does Megumin exclusively use?",
+    options: ["Fireball", "Explosion", "Lightning", "Darkness"],
+    correct: 1
+  },
+  {
+    question: "What clan does Megumin belong to?",
+    options: ["Shadow Clan", "Thunder Clan", "Crimson Demon Clan", "Golden Eye Clan"],
+    correct: 2
+  },
+  {
+    question: "How many times per day can Megumin cast her magic?",
+    options: ["Unlimited", "Three times", "Twice", "Once"],
+    correct: 3
+  },
+  {
+    question: "What is the name of Megumin's black cat?",
+    options: ["Chomusuke", "Blackie", "Shadow", "Luna"],
+    correct: 0
+  },
+  {
+    question: "What town does Megumin's party operate from?",
+    options: ["Elroad", "Axel", "Alcanretia", "Arcanletia"],
+    correct: 1
+  }
+];
+
+// Megumin reactions based on your score
+const quizReactions = [
+  { min: 0, max: 1, text: "0–1 correct - Even a slime knows more about me than you do!" },
+  { min: 2, max: 2, text: "2 correct - You need to study harder. Explosion!" },
+  { min: 3, max: 3, text: "3 correct - Decent, but not worthy of the Crimson Demon Clan." },
+  { min: 4, max: 4, text: "4 correct - Impressive! You almost match my greatness." },
+  { min: 5, max: 5, text: "5 correct - You truly understand the might of explosion magic!" }
+];
+
+// ── QUIZ STATE ─────────────────────────────
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+// ── QUIZ ELEMENTS ──────────────────────────
+const quizCounter  = document.getElementById("quizCounter");
+const quizQuestion = document.getElementById("quizQuestion");
+const quizOptions  = document.getElementById("quizOptions");
+const quizResult   = document.getElementById("quizResult");
+const quizScore    = document.getElementById("quizScore");
+const quizReaction = document.getElementById("quizReaction");
+const quizRestart  = document.getElementById("quizRestart");
+
+// ── LOAD A QUESTION ────────────────────────
+function loadQuestion() {
+  answered = false;
+  const q = quizQuestions[currentQuestion];
+
+  quizCounter.textContent  = `Question ${currentQuestion + 1} / ${quizQuestions.length}`;
+  quizQuestion.textContent = q.question;
+
+  // Clear old options
+  quizOptions.innerHTML = "";
+
+  // Build option buttons
+  q.options.forEach((option, index) => {
+    const btn = document.createElement("button");
+    btn.classList.add("quiz-option");
+    btn.textContent = option;
+    btn.addEventListener("click", () => selectAnswer(index, btn));
+    quizOptions.appendChild(btn);
+  });
+}
+
+// ── HANDLE ANSWER CLICK ────────────────────
+function selectAnswer(selectedIndex, clickedBtn) {
+  // Prevent clicking again after answering
+  if (answered) return;
+  answered = true;
+
+  const correctIndex = quizQuestions[currentQuestion].correct;
+  const allButtons   = quizOptions.querySelectorAll(".quiz-option");
+
+  // Highlight correct and wrong
+  allButtons.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === correctIndex) btn.classList.add("correct");
+    if (i === selectedIndex && selectedIndex !== correctIndex) {
+      btn.classList.add("wrong");
+    }
+  });
+
+  if (selectedIndex === correctIndex) score++;
+
+  // Wait 1.2 seconds then go to next question
+  setTimeout(() => {
+    currentQuestion++;
+    if (currentQuestion < quizQuestions.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  }, 1200);
+}
+
+// ── SHOW FINAL RESULT ──────────────────────
+function showResult() {
+  quizOptions.style.display  = "none";
+  quizQuestion.style.display = "none";
+  quizCounter.style.display  = "none";
+  quizResult.style.display   = "block";
+
+  quizScore.textContent = `${score} / ${quizQuestions.length}`;
+
+  const reaction = quizReactions.find(r => score >= r.min && score <= r.max);
+  quizReaction.textContent = reaction ? reaction.text : "";
+}
+
+// ── RESTART BUTTON ─────────────────────────
+quizRestart.addEventListener("click", () => {
+  currentQuestion = 0;
+  score           = 0;
+  answered        = false;
+
+  quizOptions.style.display  = "grid";
+  quizQuestion.style.display = "block";
+  quizCounter.style.display  = "block";
+  quizResult.style.display   = "none";
+
+  loadQuestion();
+});
+
+// Start the quiz
+
+loadQuestion();
+// ── TIMELINE SCROLL ────────────────────────
+const timelineProgress = document.getElementById("timelineProgress");
+const timelineWrap     = document.querySelector(".timeline-wrap");
+const timelineItems    = document.querySelectorAll(".timeline-item");
+
+function updateTimeline() {
+  if (!timelineWrap) return;
+
+  const windowH    = window.innerHeight;
+  const wrapRect   = timelineWrap.getBoundingClientRect();
+
+  // Get first and last dot positions
+  const dots       = timelineWrap.querySelectorAll(".timeline-dot");
+  const firstDot   = dots[0].getBoundingClientRect();
+  const lastDot    = dots[dots.length - 1].getBoundingClientRect();
+
+  // Total distance between first and last dot
+  const totalDistance = lastDot.top - firstDot.top;
+
+  // How far the line has traveled from the first dot
+  const triggerPoint = windowH * 0.5;  // line grows when dot crosses 50% screen
+  const traveled     = triggerPoint - firstDot.top;
+
+  const percent = Math.min(Math.max((traveled / totalDistance) * 100, 0), 100);
+
+  timelineProgress.style.height = percent + "%";
+
+  // Light up each dot as the line reaches it
+  dots.forEach((dot, i) => {
+    const dotRect = dot.getBoundingClientRect();
+    const dotMid  = dotRect.top + dotRect.height / 2;
+    const item    = timelineItems[i];
+
+    if (dotMid < windowH * 0.5) {
+      item.classList.add("is-reached");
+    }
+  });
+}
+
+window.addEventListener("scroll", updateTimeline);
+updateTimeline(); // run once on load

@@ -1,3 +1,8 @@
+<!--
+git add .
+git commit -m "update"
+git push
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,8 +77,20 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <nav class="topnav">
+  <div class="topnav-logo">Megumin's Profile</div>
+  <ul class="topnav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#showcase">Showcase</a></li>
+    <li><a href="#stats">Stats</a></li>
+    <li><a href="#characteristics">Character</a></li>
+    <li><a href="#relationship">Relationship</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#timeline">Story</a></li>
+  </ul>
+  <button class="topnav-hamburger" id="hamburger">☰</button>
+  </nav>
   <div id="loading-screen">
   <div class="loader"></div>
   <div class="progress-container">
@@ -89,7 +106,7 @@
   <main class="page-content">
     <blockquote>“Explosion is the ultimate magic!”</blockquote>
 
-    <h1 data-aos="zoom-in">Megumin, Axel's Strongest Mage!</h1>
+    <h1 id="about" data-aos="zoom-in">Megumin, Axel's Strongest Mage!</h1>
     <h2 data-aos="fade-down">General Information</h2>
 
     <section class="section-grid">
@@ -119,13 +136,13 @@
         </div>
       </div>
     </section>
-    <h2 data-aos="fade-up">Explosion Showcase</h2>
+    <h2 id="showcase" data-aos="fade-up">Explosion Showcase</h2>
      <section class="video-section" data-aos="zoom-in">
       <video class="video-card hover-card" controls poster="./images/megumin3.jpg">
        <source src="./videos/explosionvideo.mp4" type="video/mp4">
       </video>
     </section>
-  <div class = "stats-area">
+  <div id="stats" class = "stats-area">
     <div data-aos="fade-up" data-aos-duration="2000">
       <section class="stats-card hover-card">
         <h2>Stats Board</h2>
@@ -152,15 +169,13 @@
       </section>
     </div>
   </div>
-
+  <section>
     <p class="spell-status" id="spellStatus"></p>
     <p class="explosion-title" id="explosionTitle"></p>
-
     <button class="explosion-btn" data-aos="fade-up">CAST EXPLOSION</button>
-
     <p class="chant-text" id="chantText"></p>
-    
-    <section class = "character-section">
+  </section>
+    <section id="characteristics" class = "character-section">
       <h2 data-aos="fade-up">Characteristics and Personality</h2>
       <div data-aos="fade-up">
         <div class = "character-boxes">
@@ -187,7 +202,7 @@
         </div>
       </div>
     </section>
-    <section class="relationship-section" data-aos="fade-up">
+    <section id="relationship" class="relationship-section" data-aos="fade-up">
       <h2>Relationship</h2>
 
       <div class="relationship-layout">
@@ -375,16 +390,130 @@
     <img class="right-gallery-img hover-img" src="./images/kazumamegumin3.jpg" alt="Kazuma and Megumin">
   </div>
 </section>
+<section class ="lore">
+  <div data-aos="fade-up">
+    <h2>Megumin's Lore</h2>
+    <div class="fourcards1">
+      <div class ="text-card hover-card">
+        <h3>Origin Story</h3>
+        <p>
+          Megumin was born into the Crimson Demon Clan, a group of powerful mages known for their affinity with explosion magic. From a young age, Megumin showed an exceptional talent for explosion magic, which led her to become obsessed with mastering it. Despite her clan's expectations for her to learn a variety of magic, Megumin was determined to focus solely on explosion magic, believing it to be the ultimate form of magic.
+        </p>
+      </div>
+      <div class ="text-card hover-card">
+        <h3>Family Background</h3>
+        <p>
+          Megumin's family is part of the Crimson Demon Clan, which is known for their powerful magic and their love of explosions. The clan has a long history of producing skilled mages, and Megumin's parents were no exception. They were both talented mages who specialized in explosion magic, and they encouraged Megumin to pursue her passion for it from a young age.
+        </p>
+      </div>
+    </div>
+    <div class ="fourcards2">
+      <div class ="text-card hover-card">
+        <h3>Major Achievements</h3>
+        <p>
+          Megumin has achieved numerous accolades for her mastery of explosion magic, including being recognized as one of the most powerful mages in the Crimson Demon Clan. She has also gained fame for her ability to create devastating explosions with incredible precision and control.
+        </p>
+      </div>
+      <div class = "text-card hover-card">
+        <h3>Personality Traits</h3>
+        <p>
+          Megumin is known for her enthusiastic and energetic personality. She is highly dedicated to her craft and often becomes deeply focused on her studies and practice of explosion magic. Despite her intense passion, she can be somewhat naive and impulsive, often acting on her emotions without fully considering the consequences.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="quiz">
+  <h2>How Well Do You Know Megumin?</h2>
 
+  <div class="quiz-wrapper">
+
+    <!-- Image on the left -->
+    <div class="quiz-image-side">
+      <img src="./images/megumin4.png" alt="Megumin">
+    </div>
+
+    <!-- Quiz on the right -->
+    <div class="quiz-card hover-card" id="quizCard">
+
+      <div class="quiz-counter" id="quizCounter">Question 1 / 5</div>
+      <p class="quiz-question" id="quizQuestion"></p>
+
+      <div class="quiz-options" id="quizOptions"></div>
+
+      <div class="quiz-result" id="quizResult" style="display:none">
+        <p class="quiz-score" id="quizScore"></p>
+        <p class="quiz-reaction" id="quizReaction"></p>
+        <button class="quiz-restart" id="quizRestart">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="timeline">
+  <h2>Megumin's Story</h2>
+
+  <div class="timeline-wrap">
+
+    <!-- This is the line that grows downward as you scroll -->
+    <div class="timeline-track">
+      <div class="timeline-progress" id="timelineProgress"></div>
+    </div>
+
+    <!-- Each event -->
+    <div class="timeline-item" data-aos="fade-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card hover-card">
+        <span class="timeline-year">Year 1</span>
+        <h3>Born in Crimson Demon Village</h3>
+        <p>Megumin was born into the Crimson Demon Clan, a lineage of powerful mages with glowing red eyes and an affinity for advanced magic.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-aos="fade-left">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card hover-card">
+        <span class="timeline-year">Year 8</span>
+        <h3>Chosen by Wolbach</h3>
+        <p>A split-personality demon named Wolbach took an interest in Megumin and secretly taught her the foundations of Explosion magic at a young age.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-aos="fade-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card hover-card">
+        <span class="timeline-year">Year 12</span>
+        <h3>Mastered Explosion Magic</h3>
+        <p>Against her clan's wishes, Megumin dedicated herself entirely to Explosion magic, mastering it completely — at the cost of being unable to cast any other spell.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-aos="fade-left">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card hover-card">
+        <span class="timeline-year">Year 14</span>
+        <h3>Arrived in Axel</h3>
+        <p>Graduating at the top of her class, Megumin left the village in search of worthy enemies to test her explosion magic against, arriving in the beginner town of Axel.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-aos="fade-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card hover-card">
+        <span class="timeline-year">Present</span>
+        <h3>Joined Kazuma's Party</h3>
+        <p>Megumin joined Kazuma, Aqua, and Darkness — forming the most chaotic adventuring party in Axel. Daily explosions outside the city walls became her beloved routine.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
     <div class="explosion-flash" id="explosionFlash"></div>
     <div class="scorch-mark" id="scorchMark"></div>
     <div class="volume-control">
       <label for="bgVolume">Music</label>
       <input id="bgVolume" type="range" min="0" max="100" value="10">
     </div>
-
   </main>
-
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="script.js"></script>
   </body>
